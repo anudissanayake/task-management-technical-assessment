@@ -1,11 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { createTaskService } from '../../core/services/taskService';
+import { createTaskService, getTaskService, getTaskByIdService, updateTaskService, deleteTaskService } from '../../core/services/taskService';
 import { DynamoDBTaskRepository } from '../../infrastructure/database/DynamoDBTaskRepository';
 import { Task } from '../../core/domain/entities/taskModel';
 
 const taskRepository = new DynamoDBTaskRepository();
 const createTaskUseCase = new createTaskService(taskRepository);
+
+const getTaskUseCase = new getTaskService(taskRepository);
+
+const getTaskByIdUseCase = new getTaskByIdService(taskRepository);
+
+const updateTaskUseCase = new updateTaskService(taskRepository);
+
+const deleteTaskUseCase = new deleteTaskService(taskRepository);
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,34 +29,56 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 
 export const getTasks = async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    res.status(201).json([]);
+    const tasks = await getTaskUseCase.execute();
+    res.status(200).json(tasks);
   } catch (error) {
     next(error);
   }
 };
 
-export const getTaskById = async (_req: Request, res: Response, next: NextFunction) => {
+export const getTaskById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      //to implement
-      res.json([]);
+      const uuid = req.params.id; 
+      const tasks = await getTaskByIdUseCase.execute(uuid);
+      res.status(200).json(tasks);
     } catch (error) {
       next(error);
     }
   };
 
-  export const updateTask = async (_req: Request, res: Response, next: NextFunction) => {
+  export const updateTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
-       //to implement
-      res.json([]);
+      const uuid = req.params.id;// Extract the task ID from URL parameters
+      const { title, description, status } = req.body; // Extract task data from request body
+      const task = await getTaskByIdUseCase.execute(uuid); // Get the task by ID using the use case
+
+      // If the task does not exist, return a 404 Not Found
+      if (!task) {
+        res.status(404).json({message: "Task not found"});
+        return;
+      }
+      const updatedTask: Task = {
+        ...task,
+        title: title || task.title,
+        description: description || task.description,
+        status: status || task.status,
+        updatedAt: new Date().toISOString() 
+      }
+
+      // Update the task using the update use case
+      await updateTaskUseCase.execute(updatedTask);
+      res.status(200).json(updatedTask);
+      
     } catch (error) {
       next(error);
     }
   };
 
-  export const deleteTask = async (_req: Request, res: Response, next: NextFunction) => {
+  export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
-       //to implement
-      res.json([]);
+      const uuid = req.params.id; 
+      await deleteTaskUseCase.execute(uuid);
+      res.status(200).json({message:"Deleted successfully"});
     } catch (error) {
       next(error);
     }

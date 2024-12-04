@@ -21,7 +21,26 @@ export class DynamoDBTaskRepository implements TaskRepository {
   }
 
   async update(task: Task): Promise<void> {
-    await dynamoDb.put({ TableName: tableName, Item: task }).promise();
+    const params = {
+      TableName: tableName,
+      Key: {
+        id: task.id,
+      },
+      UpdateExpression: 'SET #title = :title, #description = :description, #status = :status, #updatedAt = :updatedAt',
+      ExpressionAttributeNames: {
+        '#title': 'title',
+        '#description': 'description',
+        '#status': 'status', // Use a placeholder for the reserved keyword
+        '#updatedAt': 'updatedAt',
+      },
+      ExpressionAttributeValues: {
+        ':title': task.title,
+        ':description': task.description,
+        ':status': task.status,
+        ':updatedAt': task.updatedAt,
+      },
+    };
+    await dynamoDb.update(params).promise();
   }
 
   async delete(id: string): Promise<void> {
