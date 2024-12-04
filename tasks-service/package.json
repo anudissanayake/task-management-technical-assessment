@@ -1,13 +1,14 @@
 {
   "name": "tasks-service",
   "version": "1.0.0",
+  "type": "commonjs",
   "description": "",
   "main": "index.js",
   "directories": {
-    "test": "tests"
+    "tests": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --loader ts-node/esm tests/**/*.test.ts",
     "start": "node dist/server.js",
     "dev": "nodemon",
     "lint": "eslint .",
@@ -22,6 +23,7 @@
     "@types/express": "^5.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.10.1",
+    "@types/sinon": "^17.0.3",
     "aws-sdk": "^2.1692.0",
     "aws-sdk-mock": "^6.2.0",
     "chai": "^5.1.2",
@@ -32,6 +34,7 @@
     "mocha": "^11.0.1",
     "nodemon": "^3.1.7",
     "sinon": "^19.0.2",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.17.0"

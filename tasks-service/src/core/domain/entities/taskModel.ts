@@ -5,6 +5,7 @@ export class Task {
       public description: string,
       public status: 'pending' | 'in-progress' | 'completed' = 'pending',
       public createdAt: string = new Date().toISOString(),
-      public updatedAt: string = new Date().toISOString()
+      public updatedAt: string = new Date().toISOString(),
+      public fileUrl?: string
     ) {}
   }  

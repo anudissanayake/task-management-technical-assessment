@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { createTaskService, getTaskService, getTaskByIdService, updateTaskService, deleteTaskService } from '../../core/services/taskService';
 import { DynamoDBTaskRepository } from '../../infrastructure/database/DynamoDBTaskRepository';
 import { Task } from '../../core/domain/entities/taskModel';
+import { uploadFile } from '../../infrastructure/s3/S3Service';
 
 const taskRepository = new DynamoDBTaskRepository();
 const createTaskUseCase = new createTaskService(taskRepository);
@@ -19,6 +20,11 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
   try {
     const { title, description } = req.body;
     const task = new Task(new Date().getTime().toString(), title, description);
+    //s3 file upload
+    if(req.body.file && req.body.fileName) {
+      const fileUrl = await uploadFile(req.body.file, req.body.fileName);
+      task.fileUrl = fileUrl;
+    }
     await createTaskUseCase.execute(task);
     res.status(201).json(task);
   } catch (error) {
