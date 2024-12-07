@@ -4,10 +4,10 @@ import { expect } from 'chai';
 import sinon,  { SinonStub } from 'sinon';
 
 // Import the function and dependencies
-import { createTask } from '../../src/adapters/controllers/taskController.js';
+import { createTask } from '../../src/controllers/taskController.js';
 import { DynamoDBTaskRepository } from '../../src/infrastructure/database/DynamoDBTaskRepository.js';
-import { createTaskService } from '../../src/core/services/taskService.js';
-import { Task } from '../../src/core/domain/entities/taskModel.js';
+import { createTaskService } from '../../src/services/taskService.js';
+import { Task } from '../../src/core/domain/models/taskModel.js';
 
 describe('createTask Controller', () => {
   let req: Partial<Request>;
