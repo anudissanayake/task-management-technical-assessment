@@ -27,11 +27,15 @@ Built using **Express.js** and **TypeScript**, it adheres to **Hexagonal Archite
 
 ## Project Structure
 
-- **core/domain**: Contains business logic and task entities.
-- **core/services**: Implements application-level services.
+- **controllers/**: Contains business logic.
+- **core/repositories**: Contains task and external api repositories.
+- **core/domain**: Contains task entities.
+- **services/**: Implements application-level services.
 - **infrastructure/database**: Manages database connections and operations.
-- **infrastructure/middlewares**: Custom middlewares for request handling and validation.
+- **infrastructure/middlewares**: Custom middlewares for request error handling and validation.
 - **routes**: Defines the API endpoints and controllers.
+- **tests**: unit testing
+- **config**: Defines environment variables
 
 ## Endpoints
 
