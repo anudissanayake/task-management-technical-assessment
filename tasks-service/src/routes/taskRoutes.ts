@@ -12,8 +12,8 @@ const taskController = new TaskController(taskService, fileUploadService);
 const taskRoutes = Router();
 
 taskRoutes.post('/', taskController.createTask);
-// router.get('/tasks', taskController.getTasks);
-// router.get('/tasks/:id', taskController.getTaskById);
-// router.put('/tasks/:id', taskController.updateTask);
-// router.delete('/tasks/:id', taskController.deleteTask);
+taskRoutes.get('/', taskController.getTasks);
+taskRoutes.get('/:id', taskController.getTaskById);
+taskRoutes.put('/:id', taskController.updateTask);
+taskRoutes.delete('/:id', taskController.deleteTask);
 export default taskRoutes;

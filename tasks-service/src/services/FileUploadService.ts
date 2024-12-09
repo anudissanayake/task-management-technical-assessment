@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -24,33 +24,27 @@ export const s3Client = new S3Client({
 
 export class FileUploadService implements FileUploader{
     async uploadFile(file: Buffer, fileName: string, mimeType: string): Promise<string> {
-        // console.log("=+++++== ",process.env.S3_BUCKET_NAME, fileData);
         const params = {
           Bucket: 'task-file-bucket',
           Key: `${Date.now()}-${fileName}`, // Ensure unique filenames
           Body: file,
           ContentType: mimeType, // Set appropriate MIME type dynamically
         };
-        console.log("AAAAAAAAA ", process.env.AWS_SECRET_ACCESS_KEY, process.env.AWS_ACCESS_KEY_ID, process.env.AWS_REGION)
-      
-        // const command = new PutObjectCommand(params);
         await s3Client.send(new PutObjectCommand(params));
         return `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
       };
+
+      async deleteFile (fileKey: string) {
+        const params = {
+          Bucket: process.env.S3_BUCKET_NAME!,
+          Key: fileKey,
+        };
+        const command = new DeleteObjectCommand(params);
+        try {
+          await s3Client.send(command);
+          console.log(`File with key ${fileKey} deleted successfully`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 }
-
-// export const deleteFromS3 = async (fileKey: string) => {
-//   const params = {
-//     Bucket: process.env.S3_BUCKET_NAME!,
-//     Key: fileKey,
-//   };
-
-//   const command = new DeleteObjectCommand(params);
-
-//   try {
-//     await s3Client.send(command);
-//     console.log(`File with key ${fileKey} deleted successfully`);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };

@@ -8,7 +8,7 @@
     "tests": "tests"
   },
   "scripts": {
-    "test": "mocha --loader ts-node/esm tests/**/*.test.ts",
+    "test": "mocha --require ts-node/register 'tests/**/*.test.ts'",
     "start": "node dist/server.js",
     "dev": "nodemon",
     "lint": "eslint .",
@@ -26,6 +26,7 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^22.10.1",
     "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
     "aws-sdk": "^2.1692.0",
     "aws-sdk-mock": "^6.2.0",
     "chai": "^5.1.2",
@@ -48,7 +49,9 @@
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "git-filter-repo": "^0.0.30",
     "multer": "^1.4.5-lts.1",
+    "serverless-http": "^3.2.0",
     "uuid": "^11.0.3"
   }
 }

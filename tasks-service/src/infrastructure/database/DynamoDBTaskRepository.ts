@@ -39,7 +39,7 @@ export class DynamoDBTaskRepository implements TaskRepository {
       ExpressionAttributeNames: {
         '#title': 'title',
         '#description': 'description',
-        '#status': 'status', // Use a placeholder for the reserved keyword
+        '#status': 'status', // Added a placeholder for the reserved keyword
         '#updatedAt': 'updatedAt',
       },
       ExpressionAttributeValues: {

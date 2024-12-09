@@ -1,5 +1,4 @@
 import { Task } from '../core/domain/models/taskModel';
-// import { TaskRepository } from '../core/repositories/TaskRepository';
 import { DynamoDBTaskRepository } from '../infrastructure/database/DynamoDBTaskRepository';
 
 
@@ -31,11 +30,3 @@ export class TaskService {
   }
 
 }
-
-// export class createTaskService {
-//   constructor(private taskRepository: TaskRepository) {}
-
-//   async execute(task: Task): Promise<void> {
-//     await this.taskRepository.create(task);
-//   }
-// }
