@@ -1,12 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import multer from 'multer';
 
 import { TaskService } from '../services/TaskService';
 import { FileUploadService } from '../services/FileUploadService';
 import { Task } from '../core/domain/models/taskModel';
-
-const storage = multer.memoryStorage(); // Multer storage setup
-const upload = multer({ storage }).single('file'); // Initialize multer
 
 export class TaskController {
   private taskService: TaskService;
@@ -18,7 +14,6 @@ export class TaskController {
   }
 
   public createTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    upload(req, res, async () => {
       try {
         const { title, description } = req.body;
         const task = new Task(new Date().getTime().toString(), title, description);
@@ -37,7 +32,6 @@ export class TaskController {
       } catch (error) {
         next(error);
       }
-    });     
   }
 
   public getTasks = async (_req: Request, res: Response, next: NextFunction) => {
@@ -60,7 +54,6 @@ export class TaskController {
   };
 
   public updateTask = async (req: Request, res: Response, next: NextFunction) => {
-    upload(req, res, async () => {
       try {
         const uuid = req.params.id;// Extract the task ID from URL parameters
         const { title, description, status } = req.body; // Extract task data from request body
@@ -96,7 +89,6 @@ export class TaskController {
       } catch (error) {
         next(error);
       }
-    });
   };
 
   public deleteTask = async (req: Request, res: Response, next: NextFunction) => {

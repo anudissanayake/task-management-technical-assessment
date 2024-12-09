@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import multer from 'multer';
+
 import { TaskController } from '../controllers/TaskController';
 import { TaskService } from '../services/TaskService';
 import { FileUploadService } from '../services/FileUploadService';
@@ -9,11 +11,15 @@ const taskService = new TaskService(taskRepository);
 const fileUploadService = new FileUploadService();
 const taskController = new TaskController(taskService, fileUploadService);
 
+// Set up multer storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const taskRoutes = Router();
 
-taskRoutes.post('/', validateTask, taskController.createTask);
+taskRoutes.post('/', upload.single('file'), validateTask, taskController.createTask);
 taskRoutes.get('/', taskController.getTasks);
 taskRoutes.get('/:id', taskController.getTaskById);
-taskRoutes.put('/:id', validateUpdateTask, taskController.updateTask);
+taskRoutes.put('/:id', upload.single('file'), validateUpdateTask, taskController.updateTask);
 taskRoutes.delete('/:id', taskController.deleteTask);
 export default taskRoutes;
