@@ -9,6 +9,7 @@ export default {
   collectCoverage: true,
   collectCoverageFrom: [
     "src/controllers/TaskController.ts",
+    "src/services/ExternalAPIService.ts"
   ],
 };
 
