@@ -1,4 +1,4 @@
-import { User } from "../domain/models/externalModel"
+import { User } from "../domain/models/UserExternalModel"
 
 export interface ExternalUserRepository {
     findAll(id: string): Promise<User[]>;

@@ -85,6 +85,8 @@ To run this project locally, ensure you have the following installed:
 5. Run the test:
    npm test
 
+   ![Test Coverage ](images/test-coverage.png)
+
 ## Deployment
 
 This project is deployed using **AWS Lambda** and **API Gateway** to ensure a serverless architecture.

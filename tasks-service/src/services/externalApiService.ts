@@ -20,8 +20,12 @@ export const fetchUsers = async (): Promise<string[]> => {
     // Cache the API response
     await putInCache(cacheKey, users);
     return users;
-  } catch (error) {
-    console.error('Error fetching data from external API:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error fetching data from external API: ${error.message}`, error);
+    } else {
+      console.error(`An unknown error occurred: ${JSON.stringify(error)}`);
+    }
     throw error;
   }
 };

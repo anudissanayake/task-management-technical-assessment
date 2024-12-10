@@ -42,7 +42,7 @@ describe('TaskController', () => {
         mimetype: 'text/plain',
       } as Express.Multer.File;
 
-      fileUploadService.uploadFile.mockResolvedValue('http://example.com/file.txt');
+      fileUploadService.uploadFile.mockResolvedValue('https://task-file-bucket.s3.us-east-1.amazonaws.com/1733684781125-TestFile.docx');
       taskService.createTaskService.mockResolvedValue();
 
       await taskController.createTask(req as Request, res as Response, next);
@@ -56,7 +56,23 @@ describe('TaskController', () => {
         expect.objectContaining({
           title: 'Test Task',
           description: 'Test Description',
-          fileUrl: 'http://example.com/file.txt',
+          fileUrl: 'https://task-file-bucket.s3.us-east-1.amazonaws.com/1733684781125-TestFile.docx',
+        })
+      );
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalled();
+    });
+
+    it('should create a task without a file and return 201', async () => {
+      req.body = { title: 'Test Task', description: 'Test Description' };
+      taskService.createTaskService.mockResolvedValue();
+
+      await taskController.createTask(req as Request, res as Response, next);
+
+      expect(taskService.createTaskService).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Test Task',
+          description: 'Test Description',
         })
       );
       expect(res.status).toHaveBeenCalledWith(201);
