@@ -33,6 +33,10 @@ describe('TaskController', () => {
     next = jest.fn();
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('createTask', () => {
     it('should create a task and return 201', async () => {
       req.body = { title: 'Test Task', description: 'Test Description' };
@@ -100,6 +104,14 @@ describe('TaskController', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(tasks);
     });
+
+    it('should return status 404 not found if tasks not found', async () => {
+      taskService.getTasksService.mockResolvedValue([]);
+      await taskController.getTasks(req as Request, res as Response, next);
+
+      expect(taskService.getTasksService).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(404);
+    });
   });
 
   describe('getTaskById', () => {
@@ -113,6 +125,14 @@ describe('TaskController', () => {
       expect(taskService.getTaskByIdService).toHaveBeenCalledWith('1');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(task);
+    });
+
+    it('should return status 404 not found if task not found', async () => {
+      taskService.getTaskByIdService.mockResolvedValue(null);
+      await taskController.getTasks(req as Request, res as Response, next);
+
+      expect(taskService.getTasksService).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(404);
     });
 
     it('should call next with error on failure', async () => {

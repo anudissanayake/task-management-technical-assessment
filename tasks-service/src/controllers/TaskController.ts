@@ -51,6 +51,10 @@ export class TaskController {
   public getTasks = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       const tasks = await this.taskService.getTasksService();
+      if (!tasks || tasks.length === 0) {
+        res.status(404).json({ message: 'No tasks found.' });
+        return;
+      }
       res.status(200).json(tasks);
     } catch (error) {
       next(error);
@@ -66,6 +70,10 @@ export class TaskController {
     try {
       const uuid = req.params.id; 
       const task = await this.taskService.getTaskByIdService(uuid);
+      if (!task) {
+        res.status(404).json({ message: 'Task not found.' });
+        return;
+      }
       res.status(200).json(task);
     } catch (error) {
       next(error);
