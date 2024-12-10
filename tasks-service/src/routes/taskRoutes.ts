@@ -5,7 +5,7 @@ import { TaskController } from '../controllers/TaskController';
 import { TaskService } from '../services/TaskService';
 import { FileUploadService } from '../services/FileUploadService';
 import { DynamoDBTaskRepository } from '../infrastructure/database/DynamoDBTaskRepository';
-import { validateTask, validateUpdateTask } from '../infrastructure/middlewares/validateTask';
+import { validateTask, validateUpdateTask } from '../infrastructure/middlewares/ValidateTask';
 const taskRepository = new DynamoDBTaskRepository();
 const taskService = new TaskService(taskRepository);
 const fileUploadService = new FileUploadService();

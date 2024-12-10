@@ -1,5 +1,5 @@
 import { dynamoDb } from './DynamoDBConfig';
-import { Task } from '../../core/domain/models/taskModel';
+import { Task } from '../../core/domain/models/TaskModel';
 import { TaskRepository } from '../../core/repositories/TaskRepository';
 import { PutCommand, GetCommand, ScanCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 

@@ -1,4 +1,4 @@
-import { Task } from '../domain/models/taskModel';
+import { Task } from '../domain/models/TaskModel';
 
 export interface TaskRepository {
   create(task: Task): Promise<void>;

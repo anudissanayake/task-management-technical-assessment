@@ -1,14 +1,14 @@
 {
   "name": "tasks-service",
   "version": "1.0.0",
-  "type": "commonjs",
   "description": "",
+  "type": "commonjs",
   "main": "index.js",
   "directories": {
     "tests": "tests"
   },
   "scripts": {
-    "test": "mocha --require ts-node/register 'tests/**/*.test.ts'",
+    "test": "jest",
     "start": "node dist/server.js",
     "dev": "nodemon",
     "lint": "eslint .",
@@ -19,25 +19,25 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@serverless/typescript": "^3.38.0",
+    "@types/aws-lambda": "^8.10.146",
     "@types/axios": "^0.9.36",
-    "@types/chai": "^5.0.1",
     "@types/express": "^5.0.0",
-    "@types/mocha": "^10.0.10",
+    "@types/jest": "^29.5.14",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.10.1",
-    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "aws-sdk": "^2.1692.0",
     "aws-sdk-mock": "^6.2.0",
-    "chai": "^5.1.2",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.13.0",
-    "mocha": "^11.0.1",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
-    "sinon": "^19.0.2",
+    "nyc": "^17.1.0",
     "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.17.0"
@@ -46,12 +46,12 @@
     "@aws-sdk/client-dynamodb": "^3.705.0",
     "@aws-sdk/client-s3": "^3.705.0",
     "@aws-sdk/lib-dynamodb": "^3.705.0",
+    "@vendia/serverless-express": "^4.12.6",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "git-filter-repo": "^0.0.30",
     "multer": "^1.4.5-lts.1",
-    "serverless-http": "^3.2.0",
     "uuid": "^11.0.3"
   }
 }

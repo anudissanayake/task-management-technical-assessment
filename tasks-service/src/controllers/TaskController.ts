@@ -2,8 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 
 import { TaskService } from '../services/TaskService';
 import { FileUploadService } from '../services/FileUploadService';
-import { Task } from '../core/domain/models/taskModel';
+import { Task } from '../core/domain/models/TaskModel';
 
+/**
+ * Implemented CRUD operations for Task
+ */
 export class TaskController {
   private taskService: TaskService;
   private fileUploadService: FileUploadService
@@ -13,6 +16,13 @@ export class TaskController {
     this.fileUploadService = fileUploadService;
   }
 
+  /**
+  * @param {Request} req 
+  * @param {string} req.body.title 
+  * @param {string} req.body.description
+  * @param {file} req.file
+  * @param {Response} res - object with 201 status code
+   */
   public createTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
         const { title, description } = req.body;
@@ -34,6 +44,10 @@ export class TaskController {
       }
   }
 
+  /**
+  * @param {Request} req 
+  * @param {Response} res - Task array with 200 status code
+  */
   public getTasks = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       const tasks = await this.taskService.getTasksService();
@@ -43,6 +57,11 @@ export class TaskController {
     }
   };
 
+  /**
+  * @param {Request} req 
+  * @param {string} req.params.id 
+  * @param {Response} res - Task object with 200 status code
+  */
   public getTaskById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const uuid = req.params.id; 
@@ -53,6 +72,13 @@ export class TaskController {
     }
   };
 
+  /**
+ * @param {Request} req 
+  * @param {string} req.body.title 
+  * @param {string} req.body.description
+  * @param {file} req.file
+  * @param {Response} res - object with 200 status code
+   */
   public updateTask = async (req: Request, res: Response, next: NextFunction) => {
       try {
         const uuid = req.params.id;// Extract the task ID from URL parameters
@@ -91,6 +117,11 @@ export class TaskController {
       }
   };
 
+  /**
+  * @param {Request} req 
+  * @param {string} req.params.id 
+  * @param {Response} res - object with 200 status code
+  */
   public deleteTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const uuid = req.params.id;

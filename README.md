@@ -4,6 +4,14 @@ Built using **Express.js** and **TypeScript**, it adheres to **Hexagonal Archite
 
 ---
 
+## Requirements
+
+To run this project locally, ensure you have the following installed:
+
+- **Node.js**: v18 or higher
+- **npm** or **Yarn**: Latest version
+- **TypeScript**: Globally installed if running `ts-node` outside of this project
+
 ## Features
 
 - **Task Management**: Create, read, update, and delete tasks with fields like UUID, title, description, status, and timestamps.
@@ -79,4 +87,10 @@ Built using **Express.js** and **TypeScript**, it adheres to **Hexagonal Archite
 
 ## Deployment
 
-//todo
+This project is deployed using **AWS Lambda** and **API Gateway** to ensure a serverless architecture.
+
+![AWS Lambda Function Deployment ](images/lambda1.png)
+
+![AWS Lambda Function Handler ](images/lambda2.png)
+
+![API Gateway Configurations](images/api-gateway1.png)

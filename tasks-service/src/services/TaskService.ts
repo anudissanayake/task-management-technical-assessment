@@ -1,4 +1,4 @@
-import { Task } from '../core/domain/models/taskModel';
+import { Task } from '../core/domain/models/TaskModel';
 import { DynamoDBTaskRepository } from '../infrastructure/database/DynamoDBTaskRepository';
 
 
