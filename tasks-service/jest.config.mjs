@@ -5,6 +5,7 @@ export default {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
+  verbose: true,
   testMatch: ['**/tests/unit/?(*.)+(spec|test).ts'],
   collectCoverage: true,
   collectCoverageFrom: [
