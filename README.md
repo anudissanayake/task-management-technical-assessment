@@ -49,13 +49,13 @@ To run this project locally, ensure you have the following installed:
 
 ### Task Endpoints
 
-| Method | Endpoint | Description              |
-| ------ | -------- | ------------------------ |
-| POST   | `/`      | Create a new task        |
-| GET    | `/`      | Retrieve all tasks       |
-| GET    | `/:id`   | Retrieve a specific task |
-| PUT    | `/:id`   | Update an existing task  |
-| DELETE | `/:id`   | Delete a task            |
+| Method | Endpoint     | Description              |
+| ------ | ------------ | ------------------------ |
+| POST   | `/tasks`     | Create a new task        |
+| GET    | `/tasks`     | Retrieve all tasks       |
+| GET    | `/tasks/:id` | Retrieve a specific task |
+| PUT    | `/tasks/:id` | Update an existing task  |
+| DELETE | `/tasks/:id` | Delete a task            |
 
 ---
 
@@ -65,19 +65,20 @@ To run this project locally, ensure you have the following installed:
 
    ```bash
    git clone git@github.com:anudissanayake/task-management-technical-assessment.git
-   cd tasks-service
+   cd .\task-management-technical-assessment\tasks-service\
 
    ```
 
 2. Install dependencies:
+
+   ```
    npm install
+   ```
 
 3. Set up environment variables:
-   PORT=3000
-   AWS_REGION=us-east-1
-   DYNAMO_TASK_TABLE_NAME=Tasks
-   S3_BUCKET_NAME=task-file-bucket
-   DYNAMO_USER_TABLE_NAME=UserCache
+
+   - copy setup variable from .env.sample to new tasks-service\.env file
+   - Configure `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 
 4. Run the development server:
    npm run dev
