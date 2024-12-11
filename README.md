@@ -86,7 +86,7 @@ To run this project locally, ensure you have the following installed:
 5. Run the test:
    npm test
 
-   ![Test Coverage ](images/test-coverage.png)
+   ![Test Coverage ](images/test-coverage-jest.png)
 
 ## Deployment
 
