@@ -59,6 +59,8 @@ To run this project locally, ensure you have the following installed:
 
 ---
 
+![Postman example ](images/postman.png)
+
 ## Installation
 
 1. Clone the repository:
